@@ -18,7 +18,6 @@ const createRootReducer = (models = []) => {
       initialState: model.state,
       name: model.namespace,
       reducers: model.reducers,
-      extraReducers: model.extraReducers,
     });
     rootReducer[model.namespace] = slice.reducer;
   });

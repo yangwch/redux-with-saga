@@ -17,7 +17,7 @@ const Model = {
         // You can also export the axios call as a function.
         const response = { id: "user", name: "Jone" };
         yield put({
-          type: "users/getUserSuccessAction",
+          type: "users/update",
           payload: {
             user: {
               ...user,
@@ -34,21 +34,16 @@ const Model = {
       }
     },
   },
-  extraReducers: {
-    update: (state, { payload }) => {
-      return {
-        ...state,
-        ...payload,
-      };
-    },
-  },
   reducers: {
-    /* This action will trigger our saga middleware
-       and set the loader to true and reset error message.
-    */
-    getUserAction: (state, { payload: id }) => {
-      state.user.isLoading = true;
-      state.user.errors = "";
+    update: (state, { payload }) => {
+      if (typeof payload === "object" && payload.constructor === Object) {
+        const entries = Object.entries(payload);
+        if (entries.length) {
+          entries.forEach(([key, value]) => {
+            state[key] = value;
+          });
+        }
+      }
     },
     getUserSuccessAction: (state, { payload }) => {
       state.user = payload.user;
