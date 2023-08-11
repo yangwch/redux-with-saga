@@ -11,7 +11,7 @@ function Profile() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  return <div>Hi, {data?.name}!</div>;
+  return <div className="profile">Hi, {data?.name}!</div>;
 }
 
 export default Profile;

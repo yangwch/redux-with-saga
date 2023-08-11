@@ -5,7 +5,7 @@ const Model = {
   state: {
     user: {
       data: null,
-      isLoading: false,
+      isLoading: true,
       errors: "",
     },
   },
