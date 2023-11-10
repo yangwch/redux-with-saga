@@ -5,9 +5,7 @@ import users from "../models/users";
 
 const { all, fork, takeEvery } = sagaEffects;
 
-const modelsList = [
-  users,
-]
+const modelsList = [users];
 
 const sagaMiddleware = createSagaMiddleware();
 const createRootReducer = (models = []) => {
@@ -36,11 +34,26 @@ const createRootSaga = function (models = []) {
     const { namespace, effects } = model;
     allEffects.push(
       ...Object.entries(effects).map(([effectName, effect]) => {
+        // wrap put to add namespace
+        const wrappedPut = function* (action) {
+          const { type } = action;
+          if (typeof type === "string" && !type.includes("/")) {
+            yield sagaEffects.put({
+              ...action,
+              type: `${namespace}/${type}`,
+            });
+          } else {
+            yield sagaEffects.put(action);
+          }
+        };
         // fork every effect
         return fork(function* () {
           // pass redux-saga/effects to a effect
           yield takeEvery(`${namespace}/${effectName}`, function* (params) {
-            yield* effect(params, sagaEffects);
+            yield* effect(params, {
+              ...sagaEffects,
+              put: wrappedPut,
+            });
           });
         });
       }),

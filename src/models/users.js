@@ -17,7 +17,7 @@ const Model = {
         // You can also export the axios call as a function.
         const response = { id: "user", name: "Jone" };
         yield put({
-          type: "users/update",
+          type: "update",
           payload: {
             user: {
               ...user,
@@ -28,7 +28,7 @@ const Model = {
         });
       } catch (error) {
         yield put({
-          type: "users/getUserErrorAction",
+          type: "getUserErrorAction",
           payload: error,
         });
       }
