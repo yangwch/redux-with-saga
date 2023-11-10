@@ -32,20 +32,20 @@ const createRootSaga = function (models = []) {
   const allEffects = [];
   models.forEach(model => {
     const { namespace, effects } = model;
+    // wrap put to add namespace
+    const wrappedPut = function* (action) {
+      const { type } = action;
+      if (typeof type === "string" && !type.includes("/")) {
+        yield sagaEffects.put({
+          ...action,
+          type: `${namespace}/${type}`,
+        });
+      } else {
+        yield sagaEffects.put(action);
+      }
+    };
     allEffects.push(
       ...Object.entries(effects).map(([effectName, effect]) => {
-        // wrap put to add namespace
-        const wrappedPut = function* (action) {
-          const { type } = action;
-          if (typeof type === "string" && !type.includes("/")) {
-            yield sagaEffects.put({
-              ...action,
-              type: `${namespace}/${type}`,
-            });
-          } else {
-            yield sagaEffects.put(action);
-          }
-        };
         // fork every effect
         return fork(function* () {
           // pass redux-saga/effects to a effect
