@@ -1,11 +1,10 @@
 import createSagaMiddleware from "@redux-saga/core";
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import * as sagaEffects from "redux-saga/effects";
-import users from "../models/users";
+import { models } from "../models";
 
 const { all, fork, takeEvery } = sagaEffects;
 
-const modelsList = [users];
 
 const sagaMiddleware = createSagaMiddleware();
 const createRootReducer = (models = []) => {
@@ -23,7 +22,7 @@ const createRootReducer = (models = []) => {
 };
 
 const store = configureStore({
-  reducer: createRootReducer(modelsList),
+  reducer: createRootReducer(models),
   middleware: [sagaMiddleware],
 });
 
@@ -64,6 +63,6 @@ const createRootSaga = function (models = []) {
   };
 };
 
-sagaMiddleware.run(createRootSaga(modelsList));
+sagaMiddleware.run(createRootSaga(models));
 
 export default store;

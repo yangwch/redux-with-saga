@@ -1,5 +1,6 @@
-import './App.css';
-import Profile from './components/Profile';
+import "./App.css";
+import Counter from "./components/Counter";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -7,6 +8,9 @@ function App() {
       <header className="App-header">
         <Profile />
       </header>
+      <div>
+        <Counter />
+      </div>
     </div>
   );
 }
