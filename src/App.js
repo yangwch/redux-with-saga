@@ -1,16 +1,14 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Counter from "./components/Counter";
-import Profile from "./components/Profile";
+import { router } from "./router";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Profile />
-      </header>
-      <div>
-        <Counter />
-      </div>
+      <RouterProvider
+        router={router}
+        fallbackElement={<p>Loading....</p>}
+      ></RouterProvider>
     </div>
   );
 }
