@@ -1,4 +1,9 @@
 import counter from "./counter";
 import users from "./users";
+import { createStore } from "./_initial";
 
-export const models = [counter, users];
+const models = [counter, users];
+
+const store = createStore(models);
+
+export default store;
