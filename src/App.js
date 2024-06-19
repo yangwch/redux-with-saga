@@ -1,12 +1,14 @@
-import './App.css';
-import Profile from './components/Profile';
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import { router } from "./router";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Profile />
-      </header>
+      <RouterProvider
+        router={router}
+        fallbackElement={<p>Loading....</p>}
+      ></RouterProvider>
     </div>
   );
 }
