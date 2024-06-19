@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "./Loading";
 
 function Profile() {
   const {
@@ -13,7 +14,7 @@ function Profile() {
     dispatch({ type: "users/getUserByIdAction" });
   }, [dispatch]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   return (
     <div className="profile">

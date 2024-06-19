@@ -1,10 +1,11 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
+import Loading from "./components/Loading";
 
 const withFallback = Component => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Component />
     </Suspense>
   );
