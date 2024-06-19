@@ -7,3 +7,18 @@ export const getQueryString = name => {
   if (r != null) return unescape(r[2]);
   return null;
 };
+
+export const getLanguage = () => {
+  const lang =
+    getQueryString("lang") ||
+    localStorage.getItem("lang") ||
+    navigator.language;
+  if (lang) {
+    return lang;
+  }
+  return "zh-CN";
+};
+
+export const setLang = (lang) => {
+  localStorage.setItem("lang", lang);
+};
